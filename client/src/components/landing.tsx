@@ -68,7 +68,7 @@ export function Landing() {
           </div>
           <br />
           <Button className="w-full" variant="outline">
-            <a href={`http://${uploadId}.10kdevs.com/index.html`} target="_blank">
+            <a href={`http://${uploadId}.walmart_vercel.com/index.html`} target="_blank">
               Visit Website
             </a>
           </Button>
