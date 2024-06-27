@@ -39,9 +39,8 @@ The third layer is the request-handler service. This service is responsible for 
 This service is resposile for the followig tasks:
 
 1. getting the request from the client
-2. Parsig and validating the request
-3. Getting the correspoding files from S3 or R2
-2. serving the assets(HTML, CSS, and JS) to the client
+2. Parsing, validating, and extracting ID from the request
+3. serving the assets(HTML, CSS, and JS) to the client from REDIS caching layer or from S3 / R2
 
 ## Tech stack used
 | Technology | Usage |
@@ -52,8 +51,9 @@ This service is resposile for the followig tasks:
 | AWS sdk and cloudflare R2 | for blob storage |
 | Github actions | for CI/CD pipeline of security, linting and building |
 | AWS SQS | hosted queue |
-| Redis client | local queue |
+| Redis client | local queue and cache |
 | Docker | for future versions |
+| ... | ... |
 
 ## Getting Started
 
@@ -64,6 +64,9 @@ This service is resposile for the followig tasks:
 - Redis client
 
 ### Installation
+
+```bash
+git clone https://github.com/dawitel/vercel-clone.git
 
 ```bash
 cd /in-to-each-service
