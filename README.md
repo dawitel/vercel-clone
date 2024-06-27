@@ -44,15 +44,16 @@ This service is resposile for the followig tasks:
 2. serving the assets(HTML, CSS, and JS) to the client
 
 ## Tech stack used
-
--> Node.js with typescript for the backend
--> React.js with vite for the frontend
--> Typescript
--> AWS sdk ad cloudflare R2
--> Github actions
--> AWS SQS
--> Redis
--> Docker for future versions
+| Technology | Usage |
+| ---------- | ----- |
+| Node.js with express |  for the backend services |
+| React.js with vite |  for the Client side |
+| Typescript | development |
+| AWS sdk and cloudflare R2 | for blob storage |
+| Github actions | for CI/CD pipeline of security, linting and building |
+| AWS SQS | hosted queue |
+| Redis client | local queue |
+| Docker | for future versions |
 
 ## Getting Started
 

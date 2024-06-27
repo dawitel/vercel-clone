@@ -1,14 +1,9 @@
 import { Request, Response } from "express";
-import {  generateID } from "../utils/utils";
-import simpleGit from "simple-git";
-import { getAllFiles } from "../utils/file";
-import path from "path";
-import { uploadFile } from "../utils/aws";
-import { RedisConection } from "../redis/Redis";
+import { generateID } from "../utils";
+import { cloneRepo, setStatusToSQS, uploadFile } from "./helper";
 
-const publisher = new RedisConection().publisher;
 /**
- * @description get repository URL clone it locally and upload it to S3
+ * @description get repository URL clone it locally, upload it to S3, and set the status in SQS
  * @param req express Request
  * @param res express Response
  * @returns id of the project
@@ -16,17 +11,10 @@ const publisher = new RedisConection().publisher;
 export const deployRouter = async (req: Request, res: Response) => {
   const repoUrl = req.body.repoUrl;
   const id = generateID();
-  await simpleGit().clone(repoUrl, path.join(__dirname, `output/${id}`));
 
-  const files = getAllFiles(path.join(__dirname, `output/${id}`));
-
-  files.forEach(async (file) => {
-    await uploadFile(file.slice(__dirname.length + 1), file);
-  });
-
-  await new Promise((resolve) => setTimeout(resolve, 5000));
-  publisher.lPush("build-queue", id);
-  publisher.hSet("status", id, "uploaded");
+  await cloneRepo(id, repoUrl);
+  await uploadFile(id);
+  await setStatusToSQS(id);
 
   return res.json({
     id: id,

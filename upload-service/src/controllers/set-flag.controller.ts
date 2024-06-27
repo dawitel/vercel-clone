@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { RedisConection } from "../redis/Redis";
+import { RedisConection } from "../configs/redis.config";
 
 const subscriber = new RedisConection().subscriber;
 /**

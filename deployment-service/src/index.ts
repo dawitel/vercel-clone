@@ -1,14 +1,11 @@
 
-import { createClient, commandOptions } from "redis";
-import { copyFinalDist, downloadS3Folder } from "./aws";
-import { buildProject } from "./utils";
+import { commandOptions } from "redis";
+import { RedisConfig } from "./configs/redis.config";
+import { buildProject, copyFinalDist, downloadS3Folder } from "./utils";
 
 // instantiate pub-sub connections to SQS
-const subscriber = createClient();
-subscriber.connect();
-
-const publisher = createClient();
-publisher.connect();
+const subscriber = new RedisConfig().subscriber;
+const publisher = new RedisConfig().publisher;
 
 /**
  * @description infinitely running function to download, build and reupload projects

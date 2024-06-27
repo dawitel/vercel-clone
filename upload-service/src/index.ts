@@ -1,8 +1,7 @@
 import express from "express";
 import cors from "cors";
-import { deployRouter } from "./controllers/deploy-route.controller";
-import { setFlag } from "./controllers/set-flag.costroller";
 import { config } from "dotenv";
+import { deployRouter, setFlag } from "./controllers";
 
 config();
 
@@ -15,6 +14,6 @@ app.post("/deploy", deployRouter);
 
 app.get("/status", setFlag);
 
-app.listen(PORT, ()=> {
-    console.log("✔ UPLOAD SERVICE IS RUNNING at http://localhost:3000")
+app.listen(PORT, () => {
+  console.log("✔ UPLOAD SERVICE IS RUNNING at http://localhost:3000");
 });
